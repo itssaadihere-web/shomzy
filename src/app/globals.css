@@ -1,26 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-black: #1a1a1a;
+  --color-brand-black: #111111;
+  --color-brand-blue: #1c4bc3;
+  --color-brand-blue-light: #2c6be3;
   --color-brand-gold: #c5a059;
-  --color-brand-gold-light: #dfc899;
-  --color-brand-cream: #fbfbfb;
-  --color-brand-gray: #4a4a4a;
+  --color-brand-cream: #f4f4f4;
+  --color-brand-gray: #777777;
   
   --font-sans: "Inter", sans-serif;
-  --font-serif: "Playfair Display", serif;
+  --font-serif: "Inter", sans-serif; /* Forcing sans for the new tech/modern look */
 }
 
 :root {
-  --background: #fbfbfb;
-  --foreground: #1a1a1a;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #121212;
-    --foreground: #fbfbfb;
-  }
+  --background: #ffffff;
+  --foreground: #222222;
 }
 
 body {
@@ -44,9 +38,5 @@ h1, h2, h3, h4, h5, h6, .font-serif {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.18);
-  }
-  .dark .glassmorphism {
-    background: rgba(18, 18, 18, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 }

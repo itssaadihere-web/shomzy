@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { ShoppingCart, Search, Menu } from 'lucide-react';
+import { ShoppingCart, Search, Menu, User, Heart, ChevronDown } from 'lucide-react';
 import { useCartStore } from '@/lib/store';
 import { useEffect, useState } from 'react';
 
@@ -15,37 +15,85 @@ export default function Header() {
 
   const cartItemsCount = items.reduce((total, item) => total + item.quantity, 0);
   return (
-    <header className="sticky top-0 z-50 w-full glassmorphism border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <button className="p-2 -ml-2 mr-2 md:hidden text-brand-black dark:text-brand-cream">
+    <header className="w-full bg-white flex flex-col relative z-50 shadow-sm">
+      {/* Top Header - Logo, Search, Icons */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex justify-between items-center h-20">
+          
+          {/* Mobile Menu & Logo */}
+          <div className="flex items-center lg:w-1/4">
+            <button className="p-2 -ml-2 mr-2 lg:hidden text-brand-black">
               <Menu className="h-6 w-6" />
             </button>
-            <Link href="/" className="font-serif text-2xl font-bold tracking-wider text-brand-black dark:text-brand-cream">
-              SHOMZY.PK
+            <Link href="/" className="font-bold text-3xl tracking-tight text-brand-black">
+              Shomzy
             </Link>
           </div>
-          
-          <nav className="hidden md:flex space-x-8">
-            <Link href="/category/fashion" className="text-sm font-medium hover:text-brand-gold transition-colors">Fashion</Link>
-            <Link href="/category/electronics" className="text-sm font-medium hover:text-brand-gold transition-colors">Electronics</Link>
-            <Link href="/category/beauty" className="text-sm font-medium hover:text-brand-gold transition-colors">Beauty</Link>
-            <Link href="/category/home" className="text-sm font-medium hover:text-brand-gold transition-colors">Home & Lifestyle</Link>
-          </nav>
 
-          <div className="flex items-center space-x-4">
-            <button className="p-2 text-brand-black dark:text-brand-cream hover:text-brand-gold transition-colors">
-              <Search className="h-5 w-5" />
-            </button>
-            <Link href="/cart" className="p-2 text-brand-black dark:text-brand-cream hover:text-brand-gold transition-colors relative flex items-center justify-center">
-              <ShoppingCart className="h-5 w-5" />
+          {/* Center Search Bar */}
+          <div className="hidden lg:flex flex-1 max-w-2xl px-8">
+            <div className="flex w-full border border-gray-300 rounded-full overflow-hidden">
+              <div className="flex-shrink-0 bg-gray-50 border-r border-gray-300 flex items-center px-4 text-sm text-gray-600">
+                All Categories <ChevronDown className="ml-1 h-4 w-4" />
+              </div>
+              <input 
+                type="text" 
+                placeholder="Search for products..." 
+                className="w-full px-4 py-2 text-sm focus:outline-none"
+              />
+              <button className="px-4 text-gray-500 hover:text-brand-blue transition-colors">
+                <Search className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+          
+          {/* Right Icons */}
+          <div className="flex items-center justify-end space-x-6 lg:w-1/4">
+            <Link href="#" className="hidden lg:block text-gray-700 hover:text-brand-blue transition-colors">
+              <User className="h-5 w-5" />
+            </Link>
+            <Link href="#" className="hidden lg:block text-gray-700 hover:text-brand-blue transition-colors">
+              <Heart className="h-5 w-5" />
+            </Link>
+            <Link href="/cart" className="text-gray-700 hover:text-brand-blue transition-colors relative flex items-center">
+              <ShoppingCart className="h-6 w-6" />
               {mounted && cartItemsCount > 0 && (
-                <span className="absolute top-1 right-1 bg-brand-gold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-2 bg-brand-black text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
                   {cartItemsCount}
                 </span>
               )}
             </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Header - Navigation Ribbon */}
+      <div className="hidden lg:block w-full bg-brand-blue text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-12 items-center">
+            
+            {/* All Categories Button */}
+            <div className="w-1/4 h-full">
+              <div className="h-full bg-[#163ca0] flex items-center px-4 cursor-pointer font-medium hover:bg-[#123185] transition-colors">
+                <Menu className="h-5 w-5 mr-2" />
+                All Categories
+              </div>
+            </div>
+
+            {/* Nav Links */}
+            <nav className="flex-1 flex justify-center space-x-8">
+              <Link href="/" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Home</Link>
+              <Link href="#" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Shop</Link>
+              <Link href="#" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Product</Link>
+              <Link href="#" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Pages</Link>
+              <Link href="#" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Lookbook</Link>
+            </nav>
+
+            {/* Right Promo Text */}
+            <div className="w-1/4 flex justify-end">
+              <span className="text-xs font-semibold text-yellow-300">SPECIAL OFFER TODAY!</span>
+            </div>
+
           </div>
         </div>
       </div>

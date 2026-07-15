@@ -1,111 +1,198 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShoppingCart, Smartphone, Camera, Laptop, Watch, Headphones, Gamepad, Monitor, Speaker } from "lucide-react";
+import { prisma } from "@/lib/prisma";
 
-export default function Home() {
+export default async function Home() {
+  const products = await prisma.product.findMany({ 
+    take: 8, 
+    include: { category: true },
+    orderBy: { createdAt: 'desc' }
+  });
+  
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative w-full h-[80vh] min-h-[600px] flex items-center">
-        <Image
-          src="/images/hero_banner.png"
-          alt="Luxury lifestyle products"
-          fill
-          className="object-cover object-center brightness-75"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-xl">
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight mb-6">
-              Elevate Your Everyday
+      <section className="bg-[#f5f7f9] py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2 z-10 pt-10 pb-20">
+            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight mb-6 tracking-tight">
+              Be At One <br /> With Your Music
             </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-8 font-sans">
-              Discover a curated selection of premium fashion, electronics, and lifestyle essentials designed for the modern connoisseur.
-            </p>
-            <Link
-              href="#categories"
-              className="inline-flex items-center px-8 py-4 bg-brand-gold text-brand-black font-semibold tracking-wide hover:bg-brand-gold-light transition-colors"
-            >
-              Shop the Collection
-              <ArrowRight className="ml-2 h-5 w-5" />
+            <p className="text-gray-500 mb-8 max-w-md text-lg">Experience high-fidelity sound with our premium selection of noise-cancelling headphones.</p>
+            <Link href="/category/electronics" className="inline-flex items-center bg-brand-blue text-white px-8 py-4 font-bold text-sm uppercase tracking-wider rounded-md hover:bg-[#153a99] transition-colors">
+              Discover Now
             </Link>
           </div>
+          <div className="md:w-1/2 absolute md:relative right-[-20%] md:right-0 opacity-20 md:opacity-100 h-[600px] w-[600px]">
+            {/* Headphones Image */}
+            <Image src="/images/hero_headphones.png" alt="Headphones" fill className="object-contain drop-shadow-2xl" priority />
+          </div>
         </div>
       </section>
 
-      {/* Featured Categories */}
-      <section id="categories" className="py-24 bg-brand-cream dark:bg-brand-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">Our Categories</h2>
-            <div className="h-1 w-20 bg-brand-gold mx-auto"></div>
+      {/* 3 Promo Banners */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-[#f6f6f6] p-8 flex items-center justify-between rounded-sm">
+            <div>
+              <p className="text-gray-500 text-sm mb-1">Gimbal</p>
+              <h3 className="font-bold text-xl mb-4">Features</h3>
+              <Link href="/category/electronics" className="text-sm font-bold text-brand-blue hover:underline">Shop Now</Link>
+            </div>
+            <div className="w-24 h-24 relative"><Image src="/images/gimbal_promo.png" alt="Gimbal" fill className="object-contain drop-shadow-lg" /></div>
           </div>
+          <div className="bg-[#f9f5f0] p-8 flex items-center justify-between rounded-sm">
+            <div>
+              <p className="text-gray-500 text-sm mb-1">MacBook</p>
+              <h3 className="font-bold text-xl mb-4">Pro 16-inch</h3>
+              <Link href="/category/electronics" className="text-sm font-bold text-brand-blue hover:underline">Shop Now</Link>
+            </div>
+            <div className="w-32 h-24 relative"><Image src="/images/laptop_promo.png" alt="Laptop" fill className="object-contain drop-shadow-lg" /></div>
+          </div>
+          <div className="bg-[#f4f7f6] p-8 flex items-center justify-between rounded-sm">
+            <div>
+              <p className="text-gray-500 text-sm mb-1">Smart</p>
+              <h3 className="font-bold text-xl mb-4">Watch</h3>
+              <Link href="/category/electronics" className="text-sm font-bold text-brand-blue hover:underline">Shop Now</Link>
+            </div>
+            <div className="w-20 h-24 relative"><Image src="/images/watch_promo.png" alt="Watch" fill className="object-contain drop-shadow-lg" /></div>
+          </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {categories.map((category) => (
-              <Link href={`/category/${category.slug}`} key={category.name} className="group relative h-96 overflow-hidden">
-                <Image
-                  src={category.image}
-                  alt={category.name}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <h3 className="text-white text-2xl font-serif font-bold tracking-wider mb-2">{category.name}</h3>
-                  <span className="text-brand-gold opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 font-medium flex items-center">
-                    Explore <ArrowRight className="ml-1 h-4 w-4" />
-                  </span>
+      {/* Featured Products */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-10 border-b border-gray-200 pb-4">
+          <h2 className="text-2xl font-bold tracking-tight">Featured Products</h2>
+          <div className="flex space-x-8 mt-4 md:mt-0 overflow-x-auto w-full md:w-auto">
+            <button className="text-brand-blue font-bold border-b-2 border-brand-blue pb-4 -mb-[18px] whitespace-nowrap">All Items</button>
+            <button className="text-gray-500 font-medium hover:text-gray-900 pb-4 -mb-[18px] whitespace-nowrap">Cameras</button>
+            <button className="text-gray-500 font-medium hover:text-gray-900 pb-4 -mb-[18px] whitespace-nowrap">Laptops</button>
+            <button className="text-gray-500 font-medium hover:text-gray-900 pb-4 -mb-[18px] whitespace-nowrap">Accessories</button>
+            <button className="text-gray-500 font-medium hover:text-gray-900 pb-4 -mb-[18px] whitespace-nowrap">Speakers</button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+          {products.map(product => {
+            const images = JSON.parse(product.images);
+            return (
+              <Link href={`/product/${product.slug}`} key={product.id} className="group flex flex-col">
+                <div className="relative aspect-square bg-gray-50 mb-4 overflow-hidden rounded-md border border-gray-100 flex items-center justify-center">
+                  <Image src={images[0] || "/images/hero_banner.png"} alt={product.name} fill className="object-cover p-8 group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <p className="text-xs text-gray-400 mb-1 font-medium">{product.category.name}</p>
+                <h3 className="font-bold text-gray-900 mb-1 truncate group-hover:text-brand-blue transition-colors text-sm">{product.name}</h3>
+                <p className="font-bold text-gray-900 mb-4">Rs. {product.price.toLocaleString()}</p>
+                <div className="mt-auto">
+                   <button className="flex items-center text-brand-blue text-sm font-bold group-hover:underline">
+                     Add to Cart <ShoppingCart className="ml-1 h-4 w-4" />
+                   </button>
                 </div>
               </Link>
-            ))}
+            )
+          })}
+        </div>
+      </section>
+
+      {/* Featured Categories Grid */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold tracking-tight">Featured Categories</h2>
+          <Link href="/category/electronics" className="text-sm text-brand-blue font-bold hover:underline flex items-center">
+            View All Categories <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-5 border-l border-t border-gray-200">
+          {[
+            { name: "Smartphones", icon: Smartphone },
+            { name: "Cameras", icon: Camera },
+            { name: "Laptops", icon: Laptop },
+            { name: "Watches", icon: Watch },
+            { name: "Speakers", icon: Speaker },
+            { name: "Headphones", icon: Headphones },
+            { name: "Accessories", icon: Monitor },
+            { name: "Gaming", icon: Gamepad },
+            { name: "Electronics", icon: Monitor },
+            { name: "More", icon: ArrowRight },
+          ].map((cat, idx) => (
+            <div key={idx} className="border-r border-b border-gray-200 p-8 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer group">
+              <cat.icon className="h-10 w-10 text-gray-400 group-hover:text-brand-blue mb-4 transition-colors stroke-[1]" />
+              <span className="text-sm font-medium text-gray-700">{cat.name}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Drone Banner */}
+      <section className="w-full bg-[#f4f7f9] py-20 relative flex items-center overflow-hidden min-h-[400px] my-16">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between relative z-10">
+           <div className="max-w-sm">
+             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">Hasselblad Camera, Create to Inspire</h2>
+           </div>
+         </div>
+         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full opacity-30 md:opacity-100">
+            <Image src="/images/drone_banner.png" alt="Drone" fill className="object-cover md:object-contain drop-shadow-2xl" />
+         </div>
+      </section>
+      
+      {/* Recommended For You */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold tracking-tight">Recommended For You</h2>
+          <Link href="/category/electronics" className="text-sm text-brand-blue font-bold hover:underline flex items-center">
+            View All <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Tall Promo Block */}
+          <div className="lg:col-span-1 bg-[#90a2a5] p-8 text-white flex flex-col justify-between h-[600px] rounded-sm relative overflow-hidden group cursor-pointer">
+            <div className="relative z-10">
+              <h3 className="text-xl font-medium mb-2">New Arrivals</h3>
+              <p className="text-3xl font-bold">Smart Watches</p>
+            </div>
+            <div className="relative z-10">
+              <span className="inline-flex items-center text-sm font-bold border-b border-white pb-1 group-hover:border-transparent transition-colors">
+                Shop Now <ArrowRight className="ml-2 h-4 w-4" />
+              </span>
+            </div>
+          </div>
+          
+          {/* 3 Products */}
+          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {products.slice(0, 3).map(product => {
+              const images = JSON.parse(product.images);
+              return (
+                <Link href={`/product/${product.slug}`} key={`rec-${product.id}`} className="group flex flex-col">
+                  <div className="relative aspect-square bg-gray-50 mb-4 overflow-hidden rounded-md border border-gray-100">
+                    <Image src={images[0] || "/images/hero_banner.png"} alt={product.name} fill className="object-cover p-8 group-hover:scale-105 transition-transform duration-500" />
+                  </div>
+                  <p className="text-xs text-gray-400 mb-1 font-medium">{product.category.name}</p>
+                  <h3 className="font-bold text-gray-900 mb-1 truncate group-hover:text-brand-blue transition-colors text-sm">{product.name}</h3>
+                  <p className="font-bold text-gray-900 mb-4">Rs. {product.price.toLocaleString()}</p>
+                  <div className="mt-auto">
+                     <button className="flex items-center text-brand-blue text-sm font-bold group-hover:underline">
+                       Add to Cart <ShoppingCart className="ml-1 h-4 w-4" />
+                     </button>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* Brand Ethos */}
-      <section className="py-24 bg-brand-black text-brand-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8">The Shomzy Promise</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16">
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full border-2 border-brand-gold flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Curated Excellence</h3>
-              <p className="text-gray-400 text-sm">Every product is meticulously selected to ensure premium quality and unparalleled design.</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full border-2 border-brand-gold flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Secure Payments</h3>
-              <p className="text-gray-400 text-sm">Seamless checkout with Bank of Punjab or Cash on Delivery for your convenience.</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full border-2 border-brand-gold flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3">24/7 Concierge</h3>
-              <p className="text-gray-400 text-sm">Our AI shopping assistant is always available to guide you through our collections.</p>
-            </div>
+      {/* PS5 Banner */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="bg-[#f3f4f6] rounded-md h-[300px] relative overflow-hidden flex items-center px-12">
+          <h2 className="text-4xl font-bold text-gray-900 relative z-10">PlayStation 5 Console</h2>
+          <div className="absolute right-0 top-0 w-1/2 h-full">
+            <Image src="/images/ps5_banner.png" alt="PS5" fill className="object-cover md:object-contain drop-shadow-xl" />
           </div>
         </div>
       </section>
     </div>
   );
 }
-
-const categories = [
-  { name: "Fashion", slug: "fashion", image: "/images/fashion.png" },
-  { name: "Electronics", slug: "electronics", image: "/images/electronics.png" },
-  { name: "Beauty", slug: "beauty", image: "/images/beauty.png" },
-  { name: "Home & Lifestyle", slug: "home", image: "/images/home.png" },
-];

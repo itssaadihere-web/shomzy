@@ -32,12 +32,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           {product.category.name}
         </Link>
         <ChevronRight className="mx-2 h-4 w-4" />
-        <span className="text-brand-black dark:text-brand-cream">{product.name}</span>
+        <span className="text-gray-900">{product.name}</span>
       </nav>
 
       <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
         {/* Product Image */}
-        <div className="relative aspect-[4/5] bg-gray-100 mb-8 lg:mb-0">
+        <div className="relative aspect-[4/5] bg-white border border-gray-100 rounded-md shadow-sm mb-8 lg:mb-0">
           <Image
             src={mainImage}
             alt={product.name}
@@ -52,20 +52,20 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <h1 className="text-3xl sm:text-4xl font-serif font-bold mb-4">{product.name}</h1>
           <p className="text-2xl text-brand-gold font-serif mb-6">Rs. {product.price.toLocaleString()}</p>
           
-          <div className="prose prose-sm sm:prose text-gray-600 dark:text-gray-300 mb-8">
+          <div className="prose prose-sm sm:prose text-gray-600 mb-8">
             <p>{product.description}</p>
           </div>
 
           <div className="mb-8">
             <div className="flex items-center justify-between text-sm mb-2">
-              <span className="font-bold text-gray-900 dark:text-gray-100">Availability</span>
+              <span className="font-bold text-gray-900">Availability</span>
               <span className={product.stock > 0 ? "text-green-600 font-medium" : "text-red-500 font-medium"}>
                 {product.stock > 0 ? `In Stock (${product.stock})` : "Out of Stock"}
               </span>
             </div>
           </div>
 
-          <div className="mt-auto pt-8 border-t border-gray-200 dark:border-gray-800">
+          <div className="mt-auto pt-8 border-t border-gray-200">
             <AddToCartButton 
               product={{
                 id: product.id,
@@ -78,7 +78,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </div>
 
           {/* Delivery Info */}
-          <div className="mt-8 space-y-4 text-sm text-gray-500 border border-gray-200 dark:border-gray-800 p-6">
+          <div className="mt-8 space-y-4 text-sm text-gray-500 border border-gray-200 p-6 rounded-md bg-white shadow-sm">
             <div className="flex">
               <svg className="flex-shrink-0 mr-3 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />

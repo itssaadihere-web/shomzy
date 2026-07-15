@@ -75,43 +75,43 @@ export default function CheckoutPage() {
         {/* Form */}
         <div className="lg:col-span-7">
           <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
-              <h2 className="text-xl font-serif font-bold mb-6 border-b border-gray-200 dark:border-gray-800 pb-4">Shipping Information</h2>
+            <div className="bg-white border border-gray-200 p-6 sm:p-8 rounded-md shadow-sm">
+              <h2 className="text-xl font-serif font-bold mb-6 border-b border-gray-200 pb-4">Shipping Information</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="sm:col-span-2">
                   <label className="block text-sm font-medium mb-2">Full Name</label>
-                  <input required type="text" name="customerName" value={formData.customerName} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-gold focus:border-brand-gold outline-none transition-colors" />
+                  <input required type="text" name="customerName" value={formData.customerName} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 bg-transparent focus:ring-1 focus:ring-brand-gold focus:border-brand-gold outline-none transition-colors rounded-sm" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Email Address</label>
-                  <input required type="email" name="customerEmail" value={formData.customerEmail} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-gold focus:border-brand-gold outline-none transition-colors" />
+                  <input required type="email" name="customerEmail" value={formData.customerEmail} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 bg-transparent focus:ring-1 focus:ring-brand-gold focus:border-brand-gold outline-none transition-colors rounded-sm" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Phone Number</label>
-                  <input required type="tel" name="customerPhone" value={formData.customerPhone} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-gold focus:border-brand-gold outline-none transition-colors" />
+                  <input required type="tel" name="customerPhone" value={formData.customerPhone} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 bg-transparent focus:ring-1 focus:ring-brand-gold focus:border-brand-gold outline-none transition-colors rounded-sm" />
                 </div>
                 <div className="sm:col-span-2">
                   <label className="block text-sm font-medium mb-2">Complete Address</label>
-                  <input required type="text" name="address" value={formData.address} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-gold focus:border-brand-gold outline-none transition-colors" />
+                  <input required type="text" name="address" value={formData.address} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 bg-transparent focus:ring-1 focus:ring-brand-gold focus:border-brand-gold outline-none transition-colors rounded-sm" />
                 </div>
                 <div className="sm:col-span-2">
                   <label className="block text-sm font-medium mb-2">City</label>
-                  <input required type="text" name="city" value={formData.city} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-brand-gold focus:border-brand-gold outline-none transition-colors" />
+                  <input required type="text" name="city" value={formData.city} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 bg-transparent focus:ring-1 focus:ring-brand-gold focus:border-brand-gold outline-none transition-colors rounded-sm" />
                 </div>
               </div>
             </div>
 
-            <div className="bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
-              <h2 className="text-xl font-serif font-bold mb-6 border-b border-gray-200 dark:border-gray-800 pb-4">Payment Method</h2>
+            <div className="bg-white border border-gray-200 p-6 sm:p-8 rounded-md shadow-sm">
+              <h2 className="text-xl font-serif font-bold mb-6 border-b border-gray-200 pb-4">Payment Method</h2>
               <div className="space-y-4">
-                <label className="flex items-center p-4 border border-gray-200 dark:border-gray-800 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+                <label className="flex items-center p-4 border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors rounded-sm">
                   <input type="radio" name="paymentMethod" value="COD" checked={formData.paymentMethod === "COD"} onChange={handleChange} className="text-brand-gold focus:ring-brand-gold h-4 w-4" />
                   <div className="ml-3">
                     <span className="block text-sm font-medium">Cash on Delivery (COD)</span>
                     <span className="block text-xs text-gray-500 mt-1">Pay when your order arrives. Required manual confirmation.</span>
                   </div>
                 </label>
-                <label className="flex items-center p-4 border border-gray-200 dark:border-gray-800 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+                <label className="flex items-center p-4 border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors rounded-sm">
                   <input type="radio" name="paymentMethod" value="BOP" checked={formData.paymentMethod === "BOP"} onChange={handleChange} className="text-brand-gold focus:ring-brand-gold h-4 w-4" />
                   <div className="ml-3">
                     <span className="block text-sm font-medium">Bank of Punjab (Online Payment)</span>
@@ -121,7 +121,7 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            <button disabled={loading} type="submit" className="w-full bg-brand-black text-brand-cream py-4 font-bold tracking-wide hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            <button disabled={loading} type="submit" className="w-full bg-brand-black text-brand-cream py-4 font-bold tracking-wide hover:bg-gray-800 transition-colors rounded-sm disabled:opacity-50 disabled:cursor-not-allowed">
               {loading ? "Processing..." : "Place Order"}
             </button>
           </form>
@@ -129,12 +129,12 @@ export default function CheckoutPage() {
 
         {/* Order Summary */}
         <div className="mt-16 lg:col-span-5 lg:mt-0 sticky top-24">
-          <div className="bg-gray-50 dark:bg-[#1a1a1a] p-6 border border-gray-200 dark:border-gray-800">
+          <div className="bg-white shadow-sm rounded-md p-6 border border-gray-200">
             <h2 className="text-lg font-bold font-serif mb-6">Order Summary</h2>
             <div className="space-y-4 mb-6">
               {items.map((item) => (
                 <div key={item.id} className="flex items-center">
-                  <div className="relative w-16 h-16 border border-gray-200 dark:border-gray-800 bg-white flex-shrink-0">
+                  <div className="relative w-16 h-16 border border-gray-200 bg-white rounded-md overflow-hidden flex-shrink-0">
                     <Image src={item.image} alt={item.name} fill className="object-cover" />
                   </div>
                   <div className="ml-4 flex-1">
@@ -148,17 +148,17 @@ export default function CheckoutPage() {
               ))}
             </div>
             
-            <dl className="space-y-4 text-sm text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800 pt-6">
+            <dl className="space-y-4 text-sm text-gray-600 border-t border-gray-200 pt-6">
               <div className="flex justify-between">
                 <dt>Subtotal</dt>
-                <dd className="font-medium text-gray-900 dark:text-gray-100">Rs. {subtotal.toLocaleString()}</dd>
+                <dd className="font-medium text-gray-900">Rs. {subtotal.toLocaleString()}</dd>
               </div>
               <div className="flex justify-between">
                 <dt>Shipping</dt>
-                <dd className="font-medium text-gray-900 dark:text-gray-100">Rs. {shipping.toLocaleString()}</dd>
+                <dd className="font-medium text-gray-900">Rs. {shipping.toLocaleString()}</dd>
               </div>
-              <div className="flex justify-between border-t border-gray-200 dark:border-gray-800 pt-4">
-                <dt className="text-base font-bold text-gray-900 dark:text-gray-100">Total</dt>
+              <div className="flex justify-between border-t border-gray-200 pt-4">
+                <dt className="text-base font-bold text-gray-900">Total</dt>
                 <dd className="text-base font-bold text-brand-gold font-serif">Rs. {totalAmount.toLocaleString()}</dd>
               </div>
             </dl>

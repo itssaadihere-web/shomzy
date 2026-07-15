@@ -20,9 +20,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="mb-12">
-        <h1 className="text-4xl font-serif font-bold mb-4">{category.name}</h1>
+        <h1 className="text-4xl font-serif font-bold mb-4 text-gray-900">{category.name}</h1>
         {category.description && (
-          <p className="text-gray-500 dark:text-gray-400 text-lg">{category.description}</p>
+          <p className="text-gray-600 text-lg">{category.description}</p>
         )}
       </div>
 
@@ -38,7 +38,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
             return (
               <Link href={`/product/${product.slug}`} key={product.id} className="group">
-                <div className="relative aspect-[4/5] mb-4 bg-gray-100 overflow-hidden">
+                <div className="relative aspect-[4/5] mb-4 bg-white overflow-hidden rounded-md border border-gray-100 group-hover:shadow-xl transition-shadow duration-300">
                   <Image
                     src={mainImage}
                     alt={product.name}
@@ -46,13 +46,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {product.stock <= 0 && (
-                    <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 uppercase font-bold">
+                    <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 uppercase font-bold tracking-wide rounded-sm">
                       Sold Out
                     </div>
                   )}
                 </div>
-                <h3 className="font-bold text-lg mb-1 group-hover:text-brand-gold transition-colors">{product.name}</h3>
-                <p className="text-brand-gray dark:text-gray-300 font-serif">Rs. {product.price.toLocaleString()}</p>
+                <h3 className="font-bold text-lg mb-1 group-hover:text-brand-gold transition-colors text-gray-900">{product.name}</h3>
+                <p className="text-gray-600 font-serif">Rs. {product.price.toLocaleString()}</p>
               </Link>
             )
           })}

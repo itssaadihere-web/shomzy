@@ -70,7 +70,7 @@ export default function ChatWidget() {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {isOpen && !isMinimized && (
-        <div className="bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-800 shadow-2xl w-80 sm:w-96 rounded-lg overflow-hidden mb-4 flex flex-col h-[500px] max-h-[80vh]">
+        <div className="bg-white border border-gray-200 shadow-2xl w-80 sm:w-96 rounded-lg overflow-hidden mb-4 flex flex-col h-[500px] max-h-[80vh]">
           {/* Header */}
           <div className="bg-brand-black text-brand-cream p-4 flex justify-between items-center cursor-pointer" onClick={toggleMinimize}>
             <div className="flex items-center">
@@ -90,13 +90,13 @@ export default function ChatWidget() {
           </div>
 
           {/* Chat Body */}
-          <div className="flex-1 p-4 overflow-y-auto bg-gray-50 dark:bg-black/50 space-y-4">
+          <div className="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4">
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div className={`max-w-[80%] p-3 rounded-lg text-sm ${
                   msg.role === "user" 
                     ? "bg-brand-gold text-brand-black rounded-tr-none font-medium" 
-                    : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-tl-none text-gray-800 dark:text-gray-200"
+                    : "bg-white border border-gray-200 rounded-tl-none text-gray-800"
                 }`}>
                   {msg.content}
                 </div>
@@ -104,7 +104,7 @@ export default function ChatWidget() {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3 rounded-lg rounded-tl-none flex space-x-1">
+                <div className="bg-white border border-gray-200 p-3 rounded-lg rounded-tl-none flex space-x-1">
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.4s" }}></div>
@@ -114,14 +114,14 @@ export default function ChatWidget() {
           </div>
 
           {/* Input Area */}
-          <div className="p-4 bg-white dark:bg-[#1a1a1a] border-t border-gray-200 dark:border-gray-800">
+          <div className="p-4 bg-white border-t border-gray-200">
             <form onSubmit={sendMessage} className="flex items-center">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about our products..."
-                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-l-md focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold bg-transparent text-sm"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold bg-transparent text-sm"
               />
               <button 
                 type="submit"

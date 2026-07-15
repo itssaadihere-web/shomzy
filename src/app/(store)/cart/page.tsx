@@ -37,10 +37,10 @@ export default function CartPage() {
       <div className="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start">
         {/* Cart Items */}
         <div className="lg:col-span-7">
-          <ul className="border-t border-gray-200 dark:border-gray-800 divide-y divide-gray-200 dark:divide-gray-800">
+          <ul className="border-t border-gray-200 divide-y divide-gray-200">
             {items.map((item) => (
               <li key={item.id} className="py-6 flex sm:py-10">
-                <div className="flex-shrink-0 w-24 h-24 sm:w-32 sm:h-32 border border-gray-200 dark:border-gray-800 bg-gray-50 overflow-hidden">
+                <div className="flex-shrink-0 w-24 h-24 sm:w-32 sm:h-32 border border-gray-200 bg-white rounded-md overflow-hidden">
                   <Image
                     src={item.image}
                     alt={item.name}
@@ -55,12 +55,12 @@ export default function CartPage() {
                     <div>
                       <div className="flex justify-between">
                         <h3 className="text-sm">
-                          <Link href={`/product/${item.productId}`} className="font-bold text-gray-900 dark:text-gray-100 hover:text-brand-gold">
+                          <Link href={`/product/${item.productId}`} className="font-bold text-gray-900 hover:text-brand-gold">
                             {item.name}
                           </Link>
                         </h3>
                       </div>
-                      <p className="mt-1 text-sm font-serif font-medium text-gray-900 dark:text-gray-100">
+                      <p className="mt-1 text-sm font-serif font-medium text-gray-900">
                         Rs. {item.price.toLocaleString()}
                       </p>
                       {item.variant && (
@@ -69,17 +69,17 @@ export default function CartPage() {
                     </div>
 
                     <div className="mt-4 sm:mt-0 sm:pr-9">
-                      <div className="flex items-center border border-gray-300 dark:border-gray-700 w-max">
+                      <div className="flex items-center border border-gray-300 rounded-md w-max">
                         <button
                           onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                          className="p-2 text-gray-600 hover:text-brand-black dark:text-gray-400 dark:hover:text-white"
+                          className="p-2 text-gray-600 hover:text-brand-black"
                         >
                           <Minus className="h-4 w-4" />
                         </button>
-                        <span className="px-4 py-2 text-sm font-medium">{item.quantity}</span>
+                        <span className="px-4 py-2 text-sm font-medium border-x border-gray-300">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="p-2 text-gray-600 hover:text-brand-black dark:text-gray-400 dark:hover:text-white"
+                          className="p-2 text-gray-600 hover:text-brand-black"
                         >
                           <Plus className="h-4 w-4" />
                         </button>
@@ -103,21 +103,21 @@ export default function CartPage() {
         </div>
 
         {/* Order Summary */}
-        <div className="mt-16 bg-gray-50 dark:bg-[#1a1a1a] p-6 lg:col-span-5 lg:mt-0">
-          <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 font-serif mb-6">Order Summary</h2>
-          <dl className="space-y-4 text-sm text-gray-600 dark:text-gray-400">
+        <div className="mt-16 bg-white border border-gray-200 rounded-md shadow-sm p-6 lg:col-span-5 lg:mt-0">
+          <h2 className="text-lg font-bold text-gray-900 font-serif mb-6">Order Summary</h2>
+          <dl className="space-y-4 text-sm text-gray-600">
             <div className="flex items-center justify-between">
               <dt>Subtotal</dt>
-              <dd className="font-medium text-gray-900 dark:text-gray-100 font-serif">Rs. {total.toLocaleString()}</dd>
+              <dd className="font-medium text-gray-900 font-serif">Rs. {total.toLocaleString()}</dd>
             </div>
-            <div className="flex items-center justify-between border-t border-gray-200 dark:border-gray-800 pt-4">
+            <div className="flex items-center justify-between border-t border-gray-200 pt-4">
               <dt className="flex items-center">
                 <span>Shipping estimate</span>
               </dt>
-              <dd className="font-medium text-gray-900 dark:text-gray-100 font-serif">Rs. 200</dd>
+              <dd className="font-medium text-gray-900 font-serif">Rs. 200</dd>
             </div>
-            <div className="flex items-center justify-between border-t border-gray-200 dark:border-gray-800 pt-4">
-              <dt className="text-base font-bold text-gray-900 dark:text-gray-100">Order Total</dt>
+            <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+              <dt className="text-base font-bold text-gray-900">Order Total</dt>
               <dd className="text-base font-bold text-brand-gold font-serif">Rs. {(total + 200).toLocaleString()}</dd>
             </div>
           </dl>

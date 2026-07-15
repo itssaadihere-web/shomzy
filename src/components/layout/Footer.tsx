@@ -1,47 +1,98 @@
 import Link from 'next/link';
+import { Send } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-black text-brand-cream py-12 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="font-serif text-xl font-bold mb-4 text-brand-gold">SHOMZY.PK</h3>
-            <p className="text-sm text-gray-400">
-              Your premium destination for fashion, electronics, beauty, and lifestyle in Pakistan.
-            </p>
+    <footer className="mt-auto flex flex-col">
+      {/* Newsletter Bar */}
+      <div className="bg-brand-blue py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+          <div className="flex items-center text-white mb-6 md:mb-0">
+            <Send className="h-8 w-8 mr-4 opacity-80" />
+            <div>
+              <h3 className="font-bold text-xl">Sign up for Newsletter</h3>
+              <p className="text-blue-100 text-sm mt-1">Receive recommendations & exclusive offers, straight to your inbox.</p>
+            </div>
           </div>
-          <div>
-            <h4 className="font-bold mb-4">Shop</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li><Link href="/category/fashion" className="hover:text-brand-gold transition-colors">Fashion</Link></li>
-              <li><Link href="/category/electronics" className="hover:text-brand-gold transition-colors">Electronics</Link></li>
-              <li><Link href="/category/beauty" className="hover:text-brand-gold transition-colors">Beauty</Link></li>
-              <li><Link href="/category/home" className="hover:text-brand-gold transition-colors">Home & Lifestyle</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4">Customer Care</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li><Link href="/order-tracking" className="hover:text-brand-gold transition-colors">Track Your Order</Link></li>
-              <li><Link href="/returns" className="hover:text-brand-gold transition-colors">Returns & Exchanges</Link></li>
-              <li><Link href="/shipping" className="hover:text-brand-gold transition-colors">Shipping Information</Link></li>
-              <li><Link href="/contact" className="hover:text-brand-gold transition-colors">Contact Us</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4">Newsletter</h4>
-            <p className="text-sm text-gray-400 mb-4">Subscribe for exclusive offers and updates.</p>
-            <div className="flex">
-              <input type="email" placeholder="Your email" className="bg-gray-800 text-white px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-brand-gold" />
-              <button className="bg-brand-gold text-brand-black px-4 py-2 font-medium hover:bg-brand-gold-light transition-colors">
+          <div className="w-full md:w-auto flex-1 max-w-md ml-0 md:ml-12">
+            <form className="flex w-full bg-white rounded-md overflow-hidden">
+              <input 
+                type="email" 
+                placeholder="Your email address" 
+                className="flex-1 px-4 py-3 focus:outline-none text-sm text-gray-800" 
+              />
+              <button className="bg-gray-100 text-gray-800 px-6 font-bold text-sm hover:bg-gray-200 transition-colors">
                 Subscribe
               </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Links */}
+      <div className="bg-white border-t border-gray-200 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            <div className="lg:col-span-2">
+              <Link href="/" className="font-bold text-2xl tracking-tight text-brand-black block mb-6">
+                Shomzy
+              </Link>
+              <ul className="space-y-3 text-sm text-gray-500">
+                <li className="flex">
+                  <span className="font-medium mr-2">Address:</span>
+                  1234 Fashion Street, Gulberg, Lahore, Pakistan
+                </li>
+                <li className="flex">
+                  <span className="font-medium mr-2">Phone:</span>
+                  +92 300 1234567
+                </li>
+                <li className="flex">
+                  <span className="font-medium mr-2">Email:</span>
+                  noreply@shomzy.pk
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-bold mb-6 text-gray-900">Categories</h4>
+              <ul className="space-y-3 text-sm text-gray-500">
+                <li><Link href="/category/fashion" className="hover:text-brand-blue transition-colors">Fashion</Link></li>
+                <li><Link href="/category/electronics" className="hover:text-brand-blue transition-colors">Electronics</Link></li>
+                <li><Link href="/category/beauty" className="hover:text-brand-blue transition-colors">Beauty</Link></li>
+                <li><Link href="/category/home" className="hover:text-brand-blue transition-colors">Home & Lifestyle</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-bold mb-6 text-gray-900">Information</h4>
+              <ul className="space-y-3 text-sm text-gray-500">
+                <li><Link href="/about" className="hover:text-brand-blue transition-colors">About Us</Link></li>
+                <li><Link href="/contact" className="hover:text-brand-blue transition-colors">Contact Us</Link></li>
+                <li><Link href="/terms" className="hover:text-brand-blue transition-colors">Terms & Conditions</Link></li>
+                <li><Link href="/returns" className="hover:text-brand-blue transition-colors">Returns & Exchanges</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-bold mb-6 text-gray-900">Useful Links</h4>
+              <ul className="space-y-3 text-sm text-gray-500">
+                <li><Link href="/store-location" className="hover:text-brand-blue transition-colors">Store Location</Link></li>
+                <li><Link href="/order-tracking" className="hover:text-brand-blue transition-colors">Order Tracking</Link></li>
+                <li><Link href="/faqs" className="hover:text-brand-blue transition-colors">FAQs</Link></li>
+              </ul>
             </div>
           </div>
         </div>
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} Shomzy.pk. All rights reserved.</p>
+      </div>
+      
+      {/* Copyright */}
+      <div className="bg-gray-50 border-t border-gray-200 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500">
+          <p>&copy; {new Date().getFullYear()} Shomzy. All rights reserved.</p>
+          <div className="mt-4 md:mt-0 flex space-x-4">
+            <span className="cursor-pointer hover:text-brand-blue">Privacy Policy</span>
+            <span className="cursor-pointer hover:text-brand-blue">Terms of Service</span>
+          </div>
         </div>
       </div>
     </footer>
