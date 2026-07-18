@@ -2,6 +2,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShoppingCart, Smartphone, Camera, Laptop, Watch, Headphones, Gamepad, Monitor, Speaker } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import fs from 'fs/promises';
+import path from 'path';
+
+async function getMarketingConfig() {
+  try {
+    const filePath = path.join(process.cwd(), 'src/config/marketing.json');
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(fileContents);
+  } catch (e) {
+    return {
+      heroBanner: { title: "Be At One With Your Music", subtitle: "Experience high-fidelity sound with our premium selection of noise-cancelling headphones.", buttonText: "Discover Now", buttonLink: "/category/electronics", image: "/images/hero_headphones.png" },
+      promo1: { title: "Features", subtitle: "Gimbal", image: "/images/gimbal_promo.png" },
+      promo2: { title: "Pro 16-inch", subtitle: "MacBook", image: "/images/laptop_promo.png" },
+      promo3: { title: "Watch", subtitle: "Smart", image: "/images/watch_promo.png" }
+    };
+  }
+}
 
 export default async function Home() {
   const products = await prisma.product.findMany({ 
@@ -10,6 +27,8 @@ export default async function Home() {
     orderBy: { createdAt: 'desc' }
   });
   
+  const marketing = await getMarketingConfig();
+  
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Section */}
@@ -17,16 +36,16 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 z-10 pt-10 pb-20">
             <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight mb-6 tracking-tight">
-              Be At One <br /> With Your Music
+              {marketing.heroBanner.title}
             </h1>
-            <p className="text-gray-500 mb-8 max-w-md text-lg">Experience high-fidelity sound with our premium selection of noise-cancelling headphones.</p>
-            <Link href="/category/electronics" className="inline-flex items-center bg-brand-blue text-white px-8 py-4 font-bold text-sm uppercase tracking-wider rounded-md hover:bg-[#153a99] transition-colors">
-              Discover Now
+            <p className="text-gray-500 mb-8 max-w-md text-lg">{marketing.heroBanner.subtitle}</p>
+            <Link href={marketing.heroBanner.buttonLink} className="inline-flex items-center bg-brand-blue text-white px-8 py-4 font-bold text-sm uppercase tracking-wider rounded-md hover:bg-[#153a99] transition-colors">
+              {marketing.heroBanner.buttonText}
             </Link>
           </div>
           <div className="md:w-1/2 absolute md:relative right-[-20%] md:right-0 opacity-20 md:opacity-100 h-[600px] w-[600px]">
             {/* Headphones Image */}
-            <Image src="/images/hero_headphones.png" alt="Headphones" fill className="object-contain drop-shadow-2xl" priority />
+            <Image src={marketing.heroBanner.image} alt="Hero Product" fill className="object-contain drop-shadow-2xl" priority />
           </div>
         </div>
       </section>
@@ -36,27 +55,27 @@ export default async function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-[#f6f6f6] p-8 flex items-center justify-between rounded-sm">
             <div>
-              <p className="text-gray-500 text-sm mb-1">Gimbal</p>
-              <h3 className="font-bold text-xl mb-4">Features</h3>
+              <p className="text-gray-500 text-sm mb-1">{marketing.promo1.subtitle}</p>
+              <h3 className="font-bold text-xl mb-4">{marketing.promo1.title}</h3>
               <Link href="/category/electronics" className="text-sm font-bold text-brand-blue hover:underline">Shop Now</Link>
             </div>
-            <div className="w-24 h-24 relative"><Image src="/images/gimbal_promo.png" alt="Gimbal" fill className="object-contain drop-shadow-lg" /></div>
+            <div className="w-24 h-24 relative"><Image src={marketing.promo1.image} alt={marketing.promo1.title} fill className="object-contain drop-shadow-lg" /></div>
           </div>
           <div className="bg-[#f9f5f0] p-8 flex items-center justify-between rounded-sm">
             <div>
-              <p className="text-gray-500 text-sm mb-1">MacBook</p>
-              <h3 className="font-bold text-xl mb-4">Pro 16-inch</h3>
+              <p className="text-gray-500 text-sm mb-1">{marketing.promo2.subtitle}</p>
+              <h3 className="font-bold text-xl mb-4">{marketing.promo2.title}</h3>
               <Link href="/category/electronics" className="text-sm font-bold text-brand-blue hover:underline">Shop Now</Link>
             </div>
-            <div className="w-32 h-24 relative"><Image src="/images/laptop_promo.png" alt="Laptop" fill className="object-contain drop-shadow-lg" /></div>
+            <div className="w-32 h-24 relative"><Image src={marketing.promo2.image} alt={marketing.promo2.title} fill className="object-contain drop-shadow-lg" /></div>
           </div>
           <div className="bg-[#f4f7f6] p-8 flex items-center justify-between rounded-sm">
             <div>
-              <p className="text-gray-500 text-sm mb-1">Smart</p>
-              <h3 className="font-bold text-xl mb-4">Watch</h3>
+              <p className="text-gray-500 text-sm mb-1">{marketing.promo3.subtitle}</p>
+              <h3 className="font-bold text-xl mb-4">{marketing.promo3.title}</h3>
               <Link href="/category/electronics" className="text-sm font-bold text-brand-blue hover:underline">Shop Now</Link>
             </div>
-            <div className="w-20 h-24 relative"><Image src="/images/watch_promo.png" alt="Watch" fill className="object-contain drop-shadow-lg" /></div>
+            <div className="w-20 h-24 relative"><Image src={marketing.promo3.image} alt={marketing.promo3.title} fill className="object-contain drop-shadow-lg" /></div>
           </div>
         </div>
       </section>

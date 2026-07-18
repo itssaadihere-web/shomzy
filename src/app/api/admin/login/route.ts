@@ -2,10 +2,10 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const { password } = await request.json();
+    const { username, password } = await request.json();
     
     // In a real app, verify against DB hash
-    if (password === 'admin123') {
+    if (username === 'Admin' && password === 'Shomzy123') {
       const response = NextResponse.json({ success: true });
       response.cookies.set('admin_session', 'authenticated', {
         httpOnly: true,

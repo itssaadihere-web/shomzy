@@ -1,0 +1,12 @@
+{
+  "heroBanner": {
+    "title": "Be At One With Your Music",
+    "subtitle": "Experience high-fidelity audio with our premium noise-cancelling headphones.",
+    "buttonText": "SHOP NOW",
+    "buttonLink": "/category/electronics",
+    "image": "/images/hero_headphones.png"
+  },
+  "promo1": { "title": "Gimbal", "subtitle": "Stabilize", "image": "/images/gimbal_promo.png" },
+  "promo2": { "title": "MacBook Pro", "subtitle": "M2 Chip", "image": "/images/laptop_promo.png" },
+  "promo3": { "title": "Smart Watch", "subtitle": "Fitness", "image": "/images/watch_promo.png" }
+}

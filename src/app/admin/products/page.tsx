@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Plus } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function AdminProducts() {
   const products = await prisma.product.findMany({
@@ -12,9 +13,9 @@ export default async function AdminProducts() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-serif font-bold">Catalog Management</h1>
-        <button className="bg-brand-black text-brand-cream px-4 py-2 font-bold hover:bg-gray-800 transition-colors flex items-center rounded">
+        <Link href="/admin/products/new" className="bg-brand-blue text-white px-4 py-2 font-bold hover:bg-blue-700 transition-colors flex items-center rounded">
           <Plus className="h-5 w-5 mr-2" /> Add Product
-        </button>
+        </Link>
       </div>
 
       <div className="bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden">
@@ -50,7 +51,7 @@ export default async function AdminProducts() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-brand-gold hover:underline font-medium">Edit</button>
+                    <Link href={`/admin/products/${product.id}/edit`} className="text-brand-blue hover:underline font-medium">Edit</Link>
                   </td>
                 </tr>
               )

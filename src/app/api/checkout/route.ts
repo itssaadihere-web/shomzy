@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { sendOrderConfirmationEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -57,7 +58,19 @@ export async function POST(request: Request) {
       return newOrder;
     });
 
-    // TODO: Send confirmation email here via nodemailer
+    // Send confirmation email
+    try {
+      await sendOrderConfirmationEmail(
+        customerEmail,
+        order.orderNumber,
+        customerName,
+        totalAmount
+      );
+      console.log(`Confirmation email sent to ${customerEmail}`);
+    } catch (emailError) {
+      console.error("Failed to send confirmation email:", emailError);
+      // We don't fail the checkout if email fails, but we log it
+    }
 
     return NextResponse.json({ success: true, orderNumber: order.orderNumber, orderId: order.id });
   } catch (error) {

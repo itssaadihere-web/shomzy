@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, AlertCircle, ShoppingBag, DollarSign, PackageX } from "lucide-react";
+import DashboardChart from "./DashboardChart";
 
 export default async function AdminDashboard() {
   const pendingOrdersCount = await prisma.order.count({
@@ -17,34 +18,80 @@ export default async function AdminDashboard() {
     orderBy: { createdAt: "desc" },
   });
 
+  const lowStockProducts = await prisma.product.findMany({
+    where: { stock: { lt: 5 } },
+    take: 5,
+    orderBy: { stock: 'asc' }
+  });
+
   return (
     <div>
-      <h1 className="text-3xl font-serif font-bold mb-8">Dashboard</h1>
+      <h1 className="text-3xl font-black tracking-tight mb-8 text-gray-900">Dashboard Overview</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div className="bg-white p-6 shadow-sm border border-red-200 rounded-lg relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-1 h-full bg-red-500"></div>
-          <h3 className="text-gray-500 text-sm font-medium">Action Required (COD)</h3>
-          <p className="text-3xl font-bold mt-2 text-red-600">{pendingOrdersCount}</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="bg-white p-6 shadow-sm border border-gray-100 rounded-xl relative overflow-hidden group hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-gray-500 text-sm font-medium">Action Required</h3>
+            <AlertCircle className="h-5 w-5 text-red-500 opacity-80" />
+          </div>
+          <p className="text-4xl font-black text-gray-900">{pendingOrdersCount}</p>
+          <div className="absolute bottom-0 left-0 w-full h-1 bg-red-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
         </div>
         
-        <div className="bg-white p-6 shadow-sm border border-gray-200 rounded-lg relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
-          <h3 className="text-gray-500 text-sm font-medium">Total Orders</h3>
-          <p className="text-3xl font-bold mt-2">{totalOrders}</p>
+        <div className="bg-white p-6 shadow-sm border border-gray-100 rounded-xl relative overflow-hidden group hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-gray-500 text-sm font-medium">Total Orders</h3>
+            <ShoppingBag className="h-5 w-5 text-brand-blue opacity-80" />
+          </div>
+          <p className="text-4xl font-black text-gray-900">{totalOrders}</p>
+          <div className="absolute bottom-0 left-0 w-full h-1 bg-brand-blue scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
         </div>
 
-        <div className="bg-white p-6 shadow-sm border border-gray-200 rounded-lg relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-1 h-full bg-green-500"></div>
-          <h3 className="text-gray-500 text-sm font-medium">Total Revenue</h3>
-          <p className="text-3xl font-bold mt-2">Rs. {totalRevenue.toLocaleString()}</p>
+        <div className="bg-white p-6 shadow-sm border border-gray-100 rounded-xl relative overflow-hidden group hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-gray-500 text-sm font-medium">Total Revenue</h3>
+            <DollarSign className="h-5 w-5 text-green-500 opacity-80" />
+          </div>
+          <p className="text-4xl font-black text-gray-900">Rs. {totalRevenue.toLocaleString()}</p>
+          <div className="absolute bottom-0 left-0 w-full h-1 bg-green-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
         </div>
       </div>
 
-      <div className="bg-white shadow-sm border border-gray-200 rounded-lg">
-        <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-          <h2 className="text-lg font-bold font-serif">Recent Orders</h2>
-          <Link href="/admin/orders" className="text-sm text-brand-gold hover:underline flex items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        <div className="lg:col-span-2 bg-white shadow-sm border border-gray-100 rounded-xl p-6">
+          <h2 className="text-lg font-bold mb-6">Revenue Overview</h2>
+          <div className="h-72 w-full">
+            <DashboardChart data={allOrders} />
+          </div>
+        </div>
+        
+        <div className="bg-white shadow-sm border border-gray-100 rounded-xl p-6 flex flex-col">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-lg font-bold flex items-center"><PackageX className="h-5 w-5 mr-2 text-red-500"/> Low Stock Alerts</h2>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            {lowStockProducts.length === 0 ? (
+              <div className="flex items-center justify-center h-full text-gray-400 text-sm">
+                Inventory levels are healthy!
+              </div>
+            ) : (
+              <ul className="space-y-4">
+                {lowStockProducts.map(product => (
+                  <li key={product.id} className="flex justify-between items-center p-3 bg-red-50 rounded-lg border border-red-100">
+                    <span className="text-sm font-medium text-gray-900 truncate pr-4">{product.name}</span>
+                    <span className="text-xs font-bold bg-red-200 text-red-800 px-2 py-1 rounded-full">{product.stock} left</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white shadow-sm border border-gray-100 rounded-xl">
+        <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+          <h2 className="text-lg font-bold">Recent Orders</h2>
+          <Link href="/admin/orders" className="text-sm font-bold text-brand-blue hover:underline flex items-center">
             View All <ArrowRight className="h-4 w-4 ml-1" />
           </Link>
         </div>
