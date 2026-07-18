@@ -36,7 +36,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             <div className="lg:col-span-2">
               <Link href="/" className="mb-6 block inline-block rounded max-w-[180px]">
-                <Image src="/images/logo.png" alt="Shomzy" width={160} height={45} className="object-contain" />
+                <img src="/images/logo.png" alt="Shomzy" className="h-12 w-auto object-contain" />
               </Link>
               <ul className="space-y-3 text-sm text-gray-500">
                 <li className="flex">

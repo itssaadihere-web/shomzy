@@ -31,7 +31,7 @@ export default function Header() {
               <Menu className="h-6 w-6" />
             </button>
             <Link href="/" className="flex items-center">
-              <Image src="/images/logo.png" alt="Shomzy" width={150} height={40} className="object-contain" priority />
+              <img src="/images/logo.png" alt="Shomzy" className="h-10 w-auto object-contain" />
             </Link>
           </div>
 

@@ -35,7 +35,7 @@ export default function AdminLogin() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center">
-        <Image src="/images/logo.png" alt="Shomzy" width={200} height={60} className="object-contain" priority />
+        <img src="/images/logo.png" alt="Shomzy" className="h-16 w-auto object-contain" />
         <h2 className="mt-4 text-center text-xl font-medium text-gray-600">
           Admin Login
         </h2>
