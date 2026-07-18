@@ -1,11 +1,26 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import fs from "fs/promises";
+import path from "path";
 
 export async function POST(request: Request) {
   try {
     const { username, password } = await request.json();
     
-    // In a real app, verify against DB hash
-    if (username === 'Admin' && password === 'Shomzy123') {
+    // Read from config file
+    let adminUsername = "Admin";
+    let adminPassword = "Shomzy123";
+    try {
+      const configPath = path.join(process.cwd(), "src/config/admin.json");
+      const configData = await fs.readFile(configPath, "utf-8");
+      const config = JSON.parse(configData);
+      adminUsername = config.username;
+      adminPassword = config.password;
+    } catch (e) {
+      console.warn("Could not read admin.json, falling back to defaults.");
+    }
+    
+    if (username === adminUsername && password === adminPassword) {
       const response = NextResponse.json({ success: true });
       response.cookies.set('admin_session', 'authenticated', {
         httpOnly: true,

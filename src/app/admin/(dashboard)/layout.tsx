@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { LayoutDashboard, ShoppingBag, PackageOpen, Users, Megaphone } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, PackageOpen, Users, Megaphone, Settings } from 'lucide-react';
 
 export default function AdminLayout({
   children,
@@ -36,6 +36,10 @@ export default function AdminLayout({
           <Link href="/admin/marketing" className="flex items-center px-4 py-3 text-blue-100 hover:bg-white/10 hover:text-white rounded-md transition-all">
             <Megaphone className="h-5 w-5 mr-3" />
             Marketing
+          </Link>
+          <Link href="/admin/settings" className="flex items-center px-4 py-3 text-blue-100 hover:bg-white/10 hover:text-white rounded-md transition-all">
+            <Settings className="h-5 w-5 mr-3" />
+            Settings
           </Link>
         </nav>
       </div>
