@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Send } from 'lucide-react';
 
 export default function Footer() {
@@ -34,8 +35,8 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             <div className="lg:col-span-2">
-              <Link href="/" className="font-bold text-2xl tracking-tight text-brand-black block mb-6">
-                Shomzy
+              <Link href="/" className="mb-6 block inline-block rounded max-w-[180px]">
+                <Image src="/images/logo.png" alt="Shomzy" width={160} height={45} className="object-contain" />
               </Link>
               <ul className="space-y-3 text-sm text-gray-500">
                 <li className="flex">

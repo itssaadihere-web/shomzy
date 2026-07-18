@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -33,9 +34,10 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-serif font-bold text-gray-900">
-          Shomzy Admin Panel
+      <div className="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center">
+        <Image src="/images/logo.png" alt="Shomzy" width={200} height={60} className="object-contain" priority />
+        <h2 className="mt-4 text-center text-xl font-medium text-gray-600">
+          Admin Login
         </h2>
       </div>
 

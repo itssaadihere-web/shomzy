@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { LayoutDashboard, ShoppingBag, PackageOpen, Users, Megaphone, Settings } from 'lucide-react';
 
 export default function AdminLayout({
@@ -12,7 +13,7 @@ export default function AdminLayout({
       <div className="w-64 bg-brand-blue text-white flex flex-col shadow-xl z-10">
         <div className="p-6">
           <Link href="/">
-            <h2 className="text-2xl font-black tracking-tight text-white">SHOMZY</h2>
+            <Image src="/images/logo.png" alt="Shomzy" width={140} height={40} className="object-contain brightness-0 invert" priority />
           </Link>
           <p className="text-sm text-blue-200 mt-1 font-medium">Admin Workspace</p>
         </div>

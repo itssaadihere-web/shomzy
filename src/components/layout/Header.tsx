@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShoppingCart, Search, Menu, User, Heart, ChevronDown } from 'lucide-react';
 import { useCartStore } from '@/lib/store';
 import { useEffect, useState } from 'react';
@@ -29,8 +30,8 @@ export default function Header() {
             >
               <Menu className="h-6 w-6" />
             </button>
-            <Link href="/" className="font-bold text-3xl tracking-tight text-brand-black">
-              Shomzy
+            <Link href="/" className="flex items-center">
+              <Image src="/images/logo.png" alt="Shomzy" width={150} height={40} className="object-contain" priority />
             </Link>
           </div>
 
