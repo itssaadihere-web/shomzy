@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 
 export default function Header() {
   const [mounted, setMounted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const items = useCartStore((state) => state.items);
   
   useEffect(() => {
@@ -22,7 +23,10 @@ export default function Header() {
           
           {/* Mobile Menu & Logo */}
           <div className="flex items-center lg:w-1/4">
-            <button className="p-2 -ml-2 mr-2 lg:hidden text-brand-black">
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 -ml-2 mr-2 lg:hidden text-brand-black"
+            >
               <Menu className="h-6 w-6" />
             </button>
             <Link href="/" className="font-bold text-3xl tracking-tight text-brand-black">
@@ -83,10 +87,8 @@ export default function Header() {
             {/* Nav Links */}
             <nav className="flex-1 flex justify-center space-x-8">
               <Link href="/" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Home</Link>
-              <Link href="#" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Shop</Link>
-              <Link href="#" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Product</Link>
-              <Link href="#" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Pages</Link>
-              <Link href="#" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Lookbook</Link>
+              <Link href="/" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Shop</Link>
+              <Link href="/" className="text-sm font-semibold hover:text-gray-200 transition-colors uppercase tracking-wider">Products</Link>
             </nav>
 
             {/* Right Promo Text */}
@@ -97,6 +99,17 @@ export default function Header() {
           </div>
         </div>
       </div>
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden absolute top-20 left-0 w-full bg-white shadow-lg border-t z-50">
+          <nav className="flex flex-col py-4">
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="px-6 py-3 border-b text-gray-800 font-medium">Home</Link>
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="px-6 py-3 border-b text-gray-800 font-medium">Shop</Link>
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="px-6 py-3 border-b text-gray-800 font-medium">Products</Link>
+            <Link href="/cart" onClick={() => setIsMobileMenuOpen(false)} className="px-6 py-3 text-brand-blue font-bold">View Cart ({cartItemsCount})</Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

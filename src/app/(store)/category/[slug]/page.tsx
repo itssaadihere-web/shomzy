@@ -14,7 +14,15 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   });
 
   if (!category) {
-    notFound();
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-32 text-center">
+        <h1 className="text-4xl font-serif font-bold mb-4 text-gray-900">Category Not Found</h1>
+        <p className="text-gray-500 mb-8 text-lg">We couldn't find this category. It may have been removed or hasn't been created yet.</p>
+        <Link href="/" className="inline-block bg-brand-blue text-white px-8 py-3 rounded-md font-bold hover:bg-blue-700 transition-colors">
+          Return Home
+        </Link>
+      </div>
+    );
   }
 
   return (
