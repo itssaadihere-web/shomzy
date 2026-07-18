@@ -33,7 +33,7 @@ export default function DashboardChart({ data }: { data: any[] }) {
           <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} tickFormatter={(val) => `Rs.${val/1000}k`} />
           <Tooltip 
             contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-            formatter={(value: number | undefined) => [value !== undefined ? `Rs. ${value.toLocaleString()}` : 'N/A', 'Revenue']}
+            formatter={(value: any) => [value !== undefined ? `Rs. ${Number(value).toLocaleString()}` : 'N/A', 'Revenue']}
           />
           <Line type="monotone" dataKey="revenue" stroke="#1c4bc3" strokeWidth={3} dot={{ r: 4, fill: '#1c4bc3', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6 }} />
         </LineChart>
@@ -49,7 +49,7 @@ export default function DashboardChart({ data }: { data: any[] }) {
         <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} tickFormatter={(val) => `Rs.${val/1000}k`} />
         <Tooltip 
           contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-          formatter={(value: number | undefined) => [value !== undefined ? `Rs. ${value.toLocaleString()}` : 'N/A', 'Revenue']}
+          formatter={(value: any) => [value !== undefined ? `Rs. ${Number(value).toLocaleString()}` : 'N/A', 'Revenue']}
         />
         <Line type="monotone" dataKey="revenue" stroke="#1c4bc3" strokeWidth={3} dot={{ r: 4, fill: '#1c4bc3', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6 }} />
       </LineChart>
